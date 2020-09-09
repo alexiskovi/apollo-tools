@@ -38,25 +38,16 @@ class ApolloFeatures:
         self.launch_control()
         self.launch_routing()
     
-    def stop_dynamic_modules(self):
-        os.system('cyber_launch stop /apollo/modules/planning/launch/planning.launch &')
-        os.system('cyber_launch stop /apollo/modules/routing/launch/routing.launch &')
-    
     def send_routing_request(self, x_start, y_start, x_end, y_end):
         msg = RoutingRequest()
-        time.sleep(1.5)
         msg.header.module_name = 'dreamview'
         msg.header.sequence_num = 0
-        time.sleep(1.5)
         waypoint = msg.waypoint.add()
-        time.sleep(1.5)
         waypoint.pose.x = float(x_start)
         waypoint.pose.y = float(y_start)
-        time.sleep(1.5)
         waypoint = msg.waypoint.add()
-        time.sleep(1.5)
         waypoint.pose.x = float(x_end)
         waypoint.pose.y = float(y_end)
 
-        time.sleep(5.0)
+        time.sleep(2.0)
         self.routing_writer.write(msg)
